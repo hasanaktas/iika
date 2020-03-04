@@ -1,0 +1,55 @@
+{
+  "name": "ika",
+  "author": "hasanaktas",
+  "email": "hasanaktas95@gmail.com",
+  "licence": "MIT",
+  "version": "0.3.0",
+  "private": false,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.5",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.45",
+    "clsx": "^1.1.0",
+    "history": "^4.10.1",
+    "moment": "^2.24.0",
+    "node-sass": "^4.13.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.0",
+    "react-dom": "^16.13.0",
+    "react-perfect-scrollbar": "^1.5.8",
+    "react-router-config": "^5.1.1",
+    "react-router-dom": "^5.1.2",
+    "react-scripts": "^3.4.0",
+    "react-table": "^7.0.0-rc.16"
+  },
+  "devDependencies": {
+    "eslint": "latest",
+    "eslint-plugin-prettier": "latest",
+    "eslint-plugin-react": "latest",
+    "prettier": "latest",
+    "prettier-eslint": "latest",
+    "prettier-eslint-cli": "latest",
+    "typescript": "latest"
+  }
+}
