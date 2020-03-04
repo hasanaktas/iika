@@ -56,7 +56,7 @@ const CustomerManagementList = () => {
     setSelectedDays([]);
   }
 
-  function hepsiniDoldur() {
+/*  function hepsiniDoldur() {
     const newPersons = persons.map((person, index) => {
       date.days.forEach(function(day) {
         person.puantaj[date.year][date.monthName][day.index] = '+';
@@ -67,7 +67,7 @@ const CustomerManagementList = () => {
     setPersons(newPersons);
     setSelectedPersons([]);
     setSelectedDays([]);
-  }
+  }*/
 
   function ayDegistir(year, month) {
     setDate(generateMonth(year, month));
