@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { Header, Table } from './components';
 import { generateMonth } from 'utils/generateDates';
@@ -22,6 +22,22 @@ const CustomerManagementList = () => {
   const [selectedDays, setSelectedDays] = useState([]);
   const [selectedWeek, setSelectedWeek] = useState([]);
   const [persons, setPersons] = useState(data);
+
+  useEffect(() => {
+    const newSelectedDays = [];
+    for (const week of selectedWeek) {
+      const haftaIndex = Number(week.substr(0,1))-1;
+      const weeekStart = date.firstSunday + 1 + ((haftaIndex-1)*7);
+      const weeekEnd = date.firstSunday + (haftaIndex*7);
+      for (const day of date.days) {
+        if (day.index >= weeekStart && day.index <= weeekEnd) newSelectedDays.push(day.index);
+      }
+    }
+
+    setSelectedDays(newSelectedDays);
+  }
+  // eslint-disable-next-line
+  ,[selectedWeek]);
 
   function degerguncelle(value) {
     const newPersons = persons.map((person, index) => {

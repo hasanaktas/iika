@@ -144,11 +144,6 @@ const Results = props => {
                       label="Hafta Seç"
                       onChange={val => {
                         setSelectedWeek(val);
-                        const firstWeek = date.days
-                          .filter(day => day.index <= date.firstSunday)
-                          .map(day => day.index);
-
-                        setSelectedDays(firstWeek);
                       }}
                       options={[
                         '1. Hafta',
