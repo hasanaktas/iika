@@ -56,12 +56,9 @@ const CustomerManagementList = () => {
 
   function otamatikdoldur() {
     const newPersons = persons.map((person, index) => {
-      date.days.forEach(function(day) {
-        day.off === false
-          ? (person.puantaj[date.year][date.monthName][day.index] = '+')
-          : (person.puantaj[date.year][date.monthName][day.index] = '');
-      });
-
+      for (const day of date.days) {
+        person.puantaj[date.year][date.monthName][day.index] = day.off ? '' : '+';
+      }
       return person;
     });
 
