@@ -23,7 +23,6 @@ const CustomerManagementList = () => {
   const [selectedWeek, setSelectedWeek] = useState([]);
   const [persons, setPersons] = useState(data);
 
-  console.log(selectedDays);
   function degerguncelle(value) {
     const newPersons = persons.map((person, index) => {
       if (selectedPersons.includes(index)) {
@@ -34,7 +33,6 @@ const CustomerManagementList = () => {
       }
       return person;
     });
-    console.log(date);
     setPersons(newPersons);
     setSelectedPersons([]);
     setSelectedDays([]);
