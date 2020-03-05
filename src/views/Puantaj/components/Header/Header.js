@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
-import { Grid, Typography, Button, makeStyles } from '@material-ui/core';
+import { Grid, Button, makeStyles } from '@material-ui/core';
 import Filter from '../Filter';
 const useStyles = makeStyles(() => ({
   root: {}
@@ -14,6 +14,7 @@ const Header = props => {
     degerguncelle,
     otamatikDoldur,
     ayDegistir,
+    tumAlanlariTemizle,
     ...rest
   } = props;
   const [openFilter, setOpenFilter] = useState(false);
@@ -36,28 +37,15 @@ const Header = props => {
         container
         spacing={3}
       >
-        <Grid item>
-          <Typography
-            component="h2"
-            gutterBottom
-            variant="overline"
-          >
-            Puantaj
-          </Typography>
-          <Typography
-            component="h1"
-            variant="h3"
-          >
-            Puantaj Ekranı
-          </Typography>
-        </Grid>
-
         <Grid
           container
           item
           spacing={3}
         >
-          <Grid item>
+          <Grid
+            item
+            xs
+          >
             <Button
               color="primary"
               onClick={otamatikDoldur}
@@ -70,22 +58,37 @@ const Header = props => {
           <Grid item>
             <Button
               color="primary"
-              onClick={() => ayDegistir('2020', '01')}
-              variant="contained"
+              onClick={() => degerguncelle('+')}
+              variant="outlined"
             >
-              2020 OCAK
+              ÇALIŞMA GÜNÜ (+)
             </Button>
           </Grid>
-          <Grid
-            item
-            xs
-          >
+          <Grid item>
             <Button
               color="primary"
-              onClick={() => ayDegistir('2020', '02')}
-              variant="contained"
+              onClick={() => degerguncelle('HT')}
+              variant="outlined"
             >
-              2020 ŞUBAT
+              HAFTA TATİLİ (HT)
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              color="primary"
+              onClick={() => degerguncelle('-')}
+              variant="outlined"
+            >
+              GELMEDi (-)
+            </Button>
+          </Grid>
+          <Grid item>
+            <Button
+              color="secondary"
+              onClick={tumAlanlariTemizle}
+              variant="outlined"
+            >
+              TÜM ALANLARI TEMİZLE
             </Button>
           </Grid>
           <Grid item>

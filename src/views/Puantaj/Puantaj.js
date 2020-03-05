@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { Header, Table } from './components';
 import { generateMonth } from 'utils/generateDates';
@@ -23,29 +23,12 @@ const CustomerManagementList = () => {
   const [selectedWeek, setSelectedWeek] = useState([]);
   const [persons, setPersons] = useState(data);
 
-  useEffect(() => {
-    const newSelectedDays = [];
-    for (const week of selectedWeek) {
-      const haftaIndex = Number(week.substr(0,1))-1;
-      const weeekStart = date.firstSunday + 1 + ((haftaIndex-1)*7);
-      const weeekEnd = date.firstSunday + (haftaIndex*7);
-      for (const day of date.days) {
-        if (day.index >= weeekStart && day.index <= weeekEnd) newSelectedDays.push(day.index);
-      }
-    }
-
-    setSelectedDays(newSelectedDays);
-  }
-  // eslint-disable-next-line
-  ,[selectedWeek]);
-
   function degerguncelle(value) {
     const newPersons = persons.map((person, index) => {
       if (selectedPersons.includes(index)) {
-        selectedDays.map(selected => {
+        for (const selected of selectedDays) {
           person.puantaj[date.year][date.monthName][selected] = value;
-          return selected;
-        });
+        }
       }
       return person;
     });
@@ -57,7 +40,9 @@ const CustomerManagementList = () => {
   function otamatikdoldur() {
     const newPersons = persons.map((person, index) => {
       for (const day of date.days) {
-        person.puantaj[date.year][date.monthName][day.index] = day.off ? '' : '+';
+        person.puantaj[date.year][date.monthName][day.index] = day.off
+          ? 'HT'
+          : '+';
       }
       return person;
     });
@@ -67,7 +52,20 @@ const CustomerManagementList = () => {
     setSelectedDays([]);
   }
 
-/*  function hepsiniDoldur() {
+  function tumAlanlariTemizle() {
+    const newPersons = persons.map((person, index) => {
+      for (const day of date.days) {
+        person.puantaj[date.year][date.monthName][day.index] = '';
+      }
+      return person;
+    });
+
+    setPersons(newPersons);
+    setSelectedPersons([]);
+    setSelectedDays([]);
+  }
+
+  /*  function hepsiniDoldur() {
     const newPersons = persons.map((person, index) => {
       date.days.forEach(function(day) {
         person.puantaj[date.year][date.monthName][day.index] = '+';
@@ -90,6 +88,7 @@ const CustomerManagementList = () => {
         ayDegistir={ayDegistir}
         degerguncelle={degerguncelle}
         otamatikDoldur={otamatikdoldur}
+        tumAlanlariTemizle={tumAlanlariTemizle}
       />
 
       {persons && (

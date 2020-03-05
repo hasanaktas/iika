@@ -4,22 +4,22 @@ import {
   makeStyles,
   Card,
   CardContent,
-  CardHeader,
   Checkbox,
   TextField,
-  Divider,
   Table,
   TableBody,
   TableCell,
-  Button,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
   TableHead,
   TableRow,
-  Typography,
   TableContainer,
   FormControlLabel,
   useTheme
 } from '@material-ui/core';
-import { MultiSelect } from 'components';
+import MultiSelectWeek from '../MultiSelectWeek';
 const useStyles = makeStyles(theme => ({
   content: {
     padding: 0
@@ -50,8 +50,7 @@ const Results = props => {
     setSelectedPersons,
     selectedDays,
     setSelectedDays,
-    selectedWeek,
-    setSelectedWeek,
+
     date
   } = props;
   const theme = useTheme();
@@ -89,14 +88,34 @@ const Results = props => {
 
   function selectDays(event) {
     const newselectedDays = event.target.checked
-      ? date.days.map((customer, index) => index)
+      ? date.days.map((day, index) => index)
       : [];
 
     setSelectedDays(newselectedDays);
   }
 
+  function selectWeek(order) {
+    let newselectedDays = [...selectedDays];
+    for (const day of date.weeks[order]) {
+      const selectedIndex = selectedDays.indexOf(day);
+
+      if (selectedIndex === -1) {
+        newselectedDays = newselectedDays.concat(selectedDays, day);
+      }
+    }
+    setSelectedDays(newselectedDays);
+  }
+
+  const inputLabel = React.useRef(null);
+  const [labelWidth, setLabelWidth] = React.useState(0);
+  React.useEffect(() => {
+    setLabelWidth(inputLabel.current.offsetWidth);
+  }, []);
+
   function selectDay(id) {
     const selectedIndex = selectedDays.indexOf(id);
+    console.log('id su:' + id);
+    console.log('selectedIndex su:' + selectedIndex);
     let newselectedDays = [];
 
     if (selectedIndex === -1) {
@@ -116,43 +135,55 @@ const Results = props => {
 
   return (
     <div className={clsx(classes.root, className)}>
-      <Typography color="textSecondary" gutterBottom variant="body2">
-        {persons.length} Kayıt bulundu.
-      </Typography>
-
       <Card>
-        <CardHeader title="Puantaj Tablosu" />
-        <Divider />
         <CardContent className={classes.content}>
           <TableContainer className={classes.tableContainer}>
             <Table padding="none">
               <TableHead>
                 <TableRow>
-                  <TableCell colSpan={5} padding="default">
-                    <TextField
+                  <TableCell
+                    colSpan={5}
+                    padding="default"
+                  >
+                    <FormControl
+                      className={classes.formControl}
+                      color="primary"
                       fullWidth
-                      label="Kişilerde Ara"
                       size="small"
-                      type="search"
                       variant="outlined"
-                    />
+                    >
+                      <InputLabel
+                        id="demo-simple-select-outlined-label"
+                        ref={inputLabel}
+                      >
+                        Kurum
+                      </InputLabel>
+                      <Select
+                        id="demo-simple-select-outlined"
+                        labelId="demo-simple-select-outlined-label"
+                        labelWidth={labelWidth}
+                        value={0}
+                      >
+                        <MenuItem value={0}>
+                          ANKARA AÇIK CEZA İNFAZ KURUMU
+                        </MenuItem>
+                        <MenuItem value={1}>
+                          ESKİŞEHİR 1 NOLU AÇIK CEZA İNFAZ KURUMU
+                        </MenuItem>
+                        <MenuItem value={2}>
+                          İZMİR 2 NOLU T TİPİ KAPALI CEZA İNFAZ KURUMU
+                        </MenuItem>
+                      </Select>
+                    </FormControl>
                   </TableCell>
                   <TableCell
                     colSpan={date.days.length}
-                    style={{ paddingLeft: 10, paddingRight: 10 }}>
-                    <MultiSelect
-                      label="Hafta Seç"
-                      onChange={val => {
-                        setSelectedWeek(val);
-                      }}
-                      options={[
-                        '1. Hafta',
-                        '2. Hafta',
-                        '3. Hafta',
-                        '4. Hafta',
-                        '5. Hafta'
-                      ]}
-                      value={selectedWeek}
+                    style={{ paddingLeft: 10, paddingRight: 10 }}
+                  >
+                    <MultiSelectWeek
+                      date={date}
+                      onChange={selectWeek}
+                      selectedDays={selectedDays}
                     />
 
                     <FormControlLabel
@@ -169,7 +200,6 @@ const Results = props => {
                       }
                       label="Tüm Günler"
                     />
-                    <Button>HIZLI İŞLEMLER</Button>
                   </TableCell>
                 </TableRow>
                 <TableRow>
@@ -177,13 +207,23 @@ const Results = props => {
                     align="center"
                     colSpan={5}
                     padding="default"
-                    rowSpan={2}>
-                    Kişi Bilgileri
+                    rowSpan={2}
+                  >
+                    <TextField
+                      fullWidth
+                      label="Kişilerde Ara"
+                      size="small"
+                      type="search"
+                      variant="outlined"
+                    />
                   </TableCell>
 
                   {date.days.map(day => {
                     return (
-                      <TableCell align="center" key={day.index}>
+                      <TableCell
+                        align="center"
+                        key={day.index}
+                      >
                         <Checkbox
                           checked={selectedDays.indexOf(day.index) !== -1}
                           color="primary"
@@ -205,7 +245,8 @@ const Results = props => {
                           backgroundColor: day.off
                             ? theme.palette.primary.light
                             : theme.palette.secondary.light
-                        }}>
+                        }}
+                      >
                         {day.order}
                       </TableCell>
                     );
@@ -223,14 +264,18 @@ const Results = props => {
                       onChange={selectPersons}
                     />
                   </TableCell>
-                  <TableCell align="center" padding="checkbox">
+                  <TableCell
+                    align="center"
+                    padding="checkbox"
+                  >
                     No
                   </TableCell>
                   <TableCell
                     style={{
                       paddingLeft: 10,
                       paddingRight: 10
-                    }}>
+                    }}
+                  >
                     T.C. No
                   </TableCell>
                   <TableCell
@@ -238,13 +283,15 @@ const Results = props => {
                     style={{
                       paddingLeft: 10,
                       paddingRight: 10
-                    }}>
+                    }}
+                  >
                     Ad Soyad
                   </TableCell>
 
                   <TableCell
                     padding="checkbox"
-                    style={{ paddingRight: 10, paddingLeft: 10 }}>
+                    style={{ paddingRight: 10, paddingLeft: 10 }}
+                  >
                     Çalışma Günü
                   </TableCell>
                   {date.days.map((day, index) => {
@@ -256,7 +303,8 @@ const Results = props => {
                           backgroundColor: day.off
                             ? theme.palette.primary.light
                             : theme.palette.secondary.light
-                        }}>
+                        }}
+                      >
                         {day.short}
                       </TableCell>
                     );
@@ -268,7 +316,8 @@ const Results = props => {
                   <TableRow
                     hover
                     key={index}
-                    selected={selectedPersons.indexOf(index) !== -1}>
+                    selected={selectedPersons.indexOf(index) !== -1}
+                  >
                     <TableCell padding="checkbox">
                       <Checkbox
                         checked={selectedPersons.indexOf(index) !== -1}
@@ -282,14 +331,16 @@ const Results = props => {
                       style={{
                         paddingLeft: 10,
                         paddingRight: 10
-                      }}>
+                      }}
+                    >
                       {user.tcNo}
                     </TableCell>
                     <TableCell
                       style={{
                         paddingLeft: 10,
                         paddingRight: 10
-                      }}>{`${user.ad} ${user.soyad}`}</TableCell>
+                      }}
+                    >{`${user.ad} ${user.soyad}`}</TableCell>
                     <TableCell align="center">
                       {user.toplamCalismaSaati}
                     </TableCell>
@@ -301,7 +352,8 @@ const Results = props => {
                           style={{
                             backgroundColor:
                               day.off && theme.palette.primary.light
-                          }}>
+                          }}
+                        >
                           {user.puantaj[date.year][date.monthName][index]}
                         </TableCell>
                       );

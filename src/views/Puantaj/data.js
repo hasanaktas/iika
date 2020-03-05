@@ -6,7 +6,7 @@ export default [
     toplamCalismaSaati: '50',
     puantaj: {
       2020: {
-        Ocak: ['+', '+', '+', '+', '+', '+', '+', '+'],
+        Ocak: [],
         Şubat: [],
         Mart: []
       }
