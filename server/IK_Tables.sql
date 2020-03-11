@@ -18,3 +18,4 @@ CREATE TABLE public.kurum (
     silindi 	    boolean 	NOT NULL,
     CONSTRAINT pk_kurum PRIMARY KEY (id)
 );
+insert into kullanici values(1, 'STY Inc.',1, false);
