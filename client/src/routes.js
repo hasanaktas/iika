@@ -3,7 +3,7 @@ import { lazy } from 'react';
 import { Redirect } from 'react-router-dom';
 import { Main as MainLayout, Auth as AuthLayout } from 'layouts';
 
-const routes = [
+const AuthRoutes = [
   {
     path: '/auth',
     component: AuthLayout,
@@ -13,15 +13,12 @@ const routes = [
         exact: true,
         component: lazy(() => import('views/Login')),
       },
-
-      {
-        component: () => <Redirect to="/errors/error-404" />,
-      },
     ],
   },
-
+];
+const HomeRoutes = [
   {
-    route: '*',
+    route: '/',
     component: MainLayout,
     routes: [
       {
@@ -62,5 +59,28 @@ const routes = [
     ],
   },
 ];
+
+const routes = logged => {
+  console.log(logged);
+  if (logged) {
+    return [
+      {
+        path: '/',
+        exact: true,
+        component: () => <Redirect to="/anasayfa" />,
+      },
+      ...HomeRoutes,
+    ];
+  } else {
+    return [
+      {
+        path: '/',
+        exact: true,
+        component: () => <Redirect to="/auth/logins" />,
+      },
+      ...AuthRoutes,
+    ];
+  }
+};
 
 export default routes;

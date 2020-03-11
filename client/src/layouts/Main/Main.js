@@ -1,11 +1,8 @@
-import React, { Suspense, useState } from 'react';
-import { Redirect } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import { renderRoutes } from 'react-router-config';
-import PropTypes from 'prop-types';
-import { LinearProgress, makeStyles } from '@material-ui/core';
+import React, { Suspense, useState } from 'react'
+import PropTypes from 'prop-types'
+import { LinearProgress, makeStyles } from '@material-ui/core'
 
-import { NavBar, TopBar } from './components';
+import { NavBar, TopBar } from './components'
 
 const useStyles = makeStyles(() => ({
   root: {
@@ -34,25 +31,20 @@ const useStyles = makeStyles(() => ({
     overflowY: 'auto',
     flex: '1 1 auto',
   },
-}));
+}))
 
 const Dashboard = props => {
-  const { route } = props;
-  const logged = useSelector(state => state.auth.logged);
-  console.log(logged);
-  const classes = useStyles();
-  const [openNavBarMobile, setOpenNavBarMobile] = useState(false);
+  const { children } = props
+
+  const classes = useStyles()
+  const [openNavBarMobile, setOpenNavBarMobile] = useState(false)
 
   const handleNavBarMobileOpen = () => {
-    setOpenNavBarMobile(true);
-  };
+    setOpenNavBarMobile(true)
+  }
 
   const handleNavBarMobileClose = () => {
-    setOpenNavBarMobile(false);
-  };
-
-  if (!logged) {
-    return <Redirect to="/auth/login" />;
+    setOpenNavBarMobile(false)
   }
 
   return (
@@ -68,15 +60,15 @@ const Dashboard = props => {
           openMobile={openNavBarMobile}
         />
         <main className={classes.content}>
-          <Suspense fallback={<LinearProgress />}>{renderRoutes(route.routes)}</Suspense>
+          <Suspense fallback={<LinearProgress />}>{children}</Suspense>
         </main>
       </div>
     </div>
-  );
-};
+  )
+}
 
 Dashboard.propTypes = {
   route: PropTypes.object,
-};
+}
 
-export default Dashboard;
+export default Dashboard
