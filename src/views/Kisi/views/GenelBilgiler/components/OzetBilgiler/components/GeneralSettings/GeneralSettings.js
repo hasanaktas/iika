@@ -1,21 +1,15 @@
 import React, { useState } from 'react';
 import clsx from 'clsx';
 import {
-  Button,
   Card,
-  CardActions,
   CardContent,
   CardHeader,
   Grid,
   Divider,
-  Switch,
   TextField,
-  Typography,
   colors,
   makeStyles,
 } from '@material-ui/core';
-
-import SuccessSnackbar from '../SuccessSnackbar';
 
 const useStyles = makeStyles(theme => ({
   root: {},
@@ -32,7 +26,6 @@ const GeneralSettings = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
-  const [openSnackbar, setOpenSnackbar] = useState(false);
   const [values, setValues] = useState({
     firstName: 'Hasan',
     lastName: 'Aktas',
@@ -56,11 +49,6 @@ const GeneralSettings = props => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    setOpenSnackbar(true);
-  };
-
-  const handleSnackbarClose = () => {
-    setOpenSnackbar(false);
   };
 
   const states = ['Ankara', 'Adana', 'Istanbul'];

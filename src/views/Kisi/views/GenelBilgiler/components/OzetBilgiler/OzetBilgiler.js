@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import clsx from 'clsx';
 import { Grid, makeStyles } from '@material-ui/core';
 import { GeneralSettings } from './components';
@@ -11,7 +11,7 @@ const OzetBilgiler = props => {
   const { className, ...rest } = props;
 
   const classes = useStyles();
-  const [profile, setProfile] = useState(null);
+  const [profile] = useState(null);
 
   return (
     <Grid

@@ -7,7 +7,7 @@ const routes = [
   {
     path: '/',
     exact: true,
-    component: () => <Redirect to="/auth/login" />,
+    component: () => <Redirect to="/anasayfa" />,
   },
 
   {

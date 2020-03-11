@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { Button, Divider, List, ListItem, makeStyles, Avatar, Typography } from '@material-ui/core';
 import { useParams, Redirect, useHistory } from 'react-router-dom';

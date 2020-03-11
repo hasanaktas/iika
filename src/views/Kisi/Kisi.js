@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from 'react';
-import clsx from 'clsx';
-import { makeStyles, Paper } from '@material-ui/core';
-import { useParams } from 'react-router-dom';
-import { KisiNavigasyon, ViewsContainer } from './components';
-import { GenelBilgiler, UcretYonetimi } from './views';
+import React from 'react';
+import { makeStyles } from '@material-ui/core';
+import { KisiNavigasyon } from './components';
+import { GenelBilgiler } from './views';
 const useStyles = makeStyles(theme => ({
   root: {
     display: 'flex',
@@ -31,17 +29,6 @@ const useStyles = makeStyles(theme => ({
 const Mail = () => {
   const classes = useStyles();
 
-  const [openFolder, setOpenFolder] = useState(true);
-
-  const { tab } = useParams();
-
-  const handleFolderOpen = () => {
-    setOpenFolder(true);
-  };
-
-  const handleFolderClose = () => {
-    setOpenFolder(false);
-  };
   return (
     <div className={classes.root}>
       <div className={classes.kisiNavigasyon}>

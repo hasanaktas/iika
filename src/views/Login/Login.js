@@ -1,15 +1,5 @@
 import React from 'react';
-import { Link as RouterLink } from 'react-router-dom';
-import {
-  Card,
-  CardContent,
-  CardMedia,
-  Typography,
-  Divider,
-  Link,
-  makeStyles,
-  Avatar,
-} from '@material-ui/core';
+import { Card, CardContent, Typography, Divider } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
 import { LoginForm } from './components';
 import { useStyles } from './Login.styles';
