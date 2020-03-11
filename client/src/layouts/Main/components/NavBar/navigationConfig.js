@@ -1,13 +1,13 @@
-import BarChartIcon from '@material-ui/icons/BarChart';
-import CodeIcon from '@material-ui/icons/Code';
-import HomeIcon from '@material-ui/icons/HomeOutlined';
-import PresentToAllIcon from '@material-ui/icons/PresentToAll';
-import PeopleIcon from '@material-ui/icons/PeopleOutlined';
-import ReceiptIcon from '@material-ui/icons/ReceiptOutlined';
-import SettingsIcon from '@material-ui/icons/SettingsOutlined';
-import ViewModuleIcon from '@material-ui/icons/ViewModule';
-import TableChartIcon from '@material-ui/icons/BorderColor';
-import DonutLargeIcon from '@material-ui/icons/DonutLarge';
+import BarChartIcon from '@material-ui/icons/BarChart'
+import CodeIcon from '@material-ui/icons/Code'
+import HomeIcon from '@material-ui/icons/HomeOutlined'
+import PresentToAllIcon from '@material-ui/icons/PresentToAll'
+import PeopleIcon from '@material-ui/icons/PeopleOutlined'
+import ReceiptIcon from '@material-ui/icons/ReceiptOutlined'
+import SettingsIcon from '@material-ui/icons/SettingsOutlined'
+import ViewModuleIcon from '@material-ui/icons/ViewModule'
+import TableChartIcon from '@material-ui/icons/BorderColor'
+import DonutLargeIcon from '@material-ui/icons/DonutLarge'
 
 export default [
   {
@@ -15,7 +15,7 @@ export default [
     pages: [
       {
         title: 'Ana Sayfa',
-        href: '/anasayfa',
+        href: '/',
         icon: HomeIcon,
       },
       {
@@ -118,4 +118,4 @@ export default [
       },
     ],
   },
-];
+]

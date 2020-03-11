@@ -1,12 +1,12 @@
-import React, { Fragment, useEffect } from 'react';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
-import { Drawer, Paper, Hidden, makeStyles, Button } from '@material-ui/core';
-import { useDispatch } from 'react-redux';
-import * as allActions from 'store/actions/authActions';
-import useRouter from 'utils/useRouter';
-import Navigation from './Navigation';
-import navigationConfig from './navigationConfig';
+import React, { Fragment, useEffect } from 'react'
+import clsx from 'clsx'
+import PropTypes from 'prop-types'
+import { Drawer, Paper, Hidden, makeStyles, Button } from '@material-ui/core'
+import { useDispatch } from 'react-redux'
+import * as allActions from 'store/actions/authActions'
+import useRouter from 'utils/useRouter'
+import Navigation from './Navigation'
+import navigationConfig from './navigationConfig'
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -37,21 +37,21 @@ const useStyles = makeStyles(theme => ({
   navigation: {
     marginTop: theme.spacing(2),
   },
-}));
+}))
 
 const NavBar = props => {
-  const { openMobile, onMobileClose, className, ...rest } = props;
-  const dispatch = useDispatch();
-  const classes = useStyles();
-  const router = useRouter();
+  const { openMobile, onMobileClose, className, ...rest } = props
+  const dispatch = useDispatch()
+  const classes = useStyles()
+  const router = useRouter()
 
   useEffect(() => {
     if (openMobile) {
-      onMobileClose && onMobileClose();
+      onMobileClose && onMobileClose()
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [router.location.pathname]);
+  }, [router.location.pathname])
 
   const navbarContent = (
     <div className={classes.content}>
@@ -67,7 +67,7 @@ const NavBar = props => {
         <Button onClick={() => dispatch(allActions.logout())}>Cikis Yap</Button>
       </nav>
     </div>
-  );
+  )
 
   return (
     <Fragment>
@@ -97,13 +97,13 @@ const NavBar = props => {
         </Paper>
       </Hidden>
     </Fragment>
-  );
-};
+  )
+}
 
 NavBar.propTypes = {
   className: PropTypes.string,
   onMobileClose: PropTypes.func,
   openMobile: PropTypes.bool,
-};
+}
 
-export default NavBar;
+export default NavBar

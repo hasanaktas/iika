@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as allActions from 'store/actions'
 import AuthRoute from './AuthRoute'
 import MainRoute from './MainRoute'
-import { HomeView, LoginView, InitializedView } from 'views'
+import { HomeView, LoginView, InitializedView, KurumIslemleriView, NotFoundView } from 'views'
 
 const browserHistory = createBrowserHistory()
 
@@ -20,16 +20,26 @@ const RNRouter = () => {
 
   return initialized ? (
     <Router history={browserHistory}>
-      <div>
-        <Switch>
-          <AuthRoute path="/giris-yap">
-            <LoginView />
-          </AuthRoute>
-          <MainRoute path="/">
-            <HomeView />
-          </MainRoute>
-        </Switch>
-      </div>
+      <Switch>
+        <AuthRoute path="/giris-yap">
+          <LoginView />
+        </AuthRoute>
+        <MainRoute
+          exact
+          path="/"
+        >
+          <HomeView />
+        </MainRoute>
+        <MainRoute
+          exact
+          path="/tanimlar/kurum-islemleri"
+        >
+          <KurumIslemleriView />
+        </MainRoute>
+        <MainRoute>
+          <NotFoundView />
+        </MainRoute>
+      </Switch>
     </Router>
   ) : (
     <InitializedView />

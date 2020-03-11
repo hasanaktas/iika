@@ -1,3 +1,5 @@
 export { default as HomeView } from './Home'
 export { default as LoginView } from './Login'
 export { default as InitializedView } from './Initialized'
+export { default as KurumIslemleriView } from './KurumIslemleri'
+export { default as NotFoundView } from './NotFound'

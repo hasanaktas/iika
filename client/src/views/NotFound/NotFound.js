@@ -12,7 +12,7 @@ export default function Home() {
         alignItems: 'center',
       }}
     >
-      Ana Sayfa
+      SAYFA BULUNAMADI
     </div>
   )
 }
