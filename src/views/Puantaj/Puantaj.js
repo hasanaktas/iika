@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { makeStyles } from '@material-ui/core';
 import { Header, Table } from './components';
 import { generateMonth } from 'utils/generateDates';
-import data from './data';
+import axios from 'utils/axios';
 const useStyles = makeStyles(theme => ({
   root: {
     padding: theme.spacing(3)
@@ -21,7 +21,17 @@ const CustomerManagementList = () => {
   const [selectedPersons, setSelectedPersons] = useState([]);
   const [selectedDays, setSelectedDays] = useState([]);
   const [selectedWeek, setSelectedWeek] = useState([]);
-  const [persons, setPersons] = useState(data);
+  const [persons, setPersons] = useState([]);
+
+  useEffect(() => {
+    const fetchPersons = () => {
+      axios.get('/api/puantaj').then(response => {
+        setPersons(response.data);
+      });
+    };
+
+    fetchPersons();
+  }, []);
 
   function degerguncelle(value) {
     const newPersons = persons.map((person, index) => {
@@ -91,19 +101,17 @@ const CustomerManagementList = () => {
         tumAlanlariTemizle={tumAlanlariTemizle}
       />
 
-      {persons && (
-        <Table
-          className={classes.results}
-          date={date}
-          persons={persons}
-          selectedDays={selectedDays}
-          selectedPersons={selectedPersons}
-          selectedWeek={selectedWeek}
-          setSelectedDays={setSelectedDays}
-          setSelectedPersons={setSelectedPersons}
-          setSelectedWeek={setSelectedWeek}
-        />
-      )}
+      <Table
+        className={classes.results}
+        date={date}
+        persons={persons}
+        selectedDays={selectedDays}
+        selectedPersons={selectedPersons}
+        selectedWeek={selectedWeek}
+        setSelectedDays={setSelectedDays}
+        setSelectedPersons={setSelectedPersons}
+        setSelectedWeek={setSelectedWeek}
+      />
     </div>
   );
 };

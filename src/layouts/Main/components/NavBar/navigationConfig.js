@@ -15,8 +15,8 @@ export default [
     pages: [
       {
         title: 'Ana Sayfa',
-        href: '/',
-        icon: HomeIcon
+        href: '/anasayfa',
+        icon: HomeIcon,
       },
       {
         title: 'Personel Kartı',
@@ -25,9 +25,9 @@ export default [
         children: [
           {
             title: 'Kişi Kartı',
-            href: '/personelkarti/kisikarti'
-          }
-        ]
+            href: '/personelkarti/kisikarti',
+          },
+        ],
       },
       {
         title: 'İzin İşlemleri',
@@ -36,18 +36,18 @@ export default [
         children: [
           {
             title: 'İzin İşlemleri',
-            href: '/management/customers'
+            href: '/management/customers',
           },
           {
             title: 'Rapor İşlemleri',
-            href: '/management/customers/1/summary'
-          }
-        ]
+            href: '/management/customers/1/summary',
+          },
+        ],
       },
       {
         title: 'Puantaj',
         href: '/puantaj',
-        icon: TableChartIcon
+        icon: TableChartIcon,
       },
       {
         title: 'Tahakkuk İşlemleri',
@@ -56,18 +56,18 @@ export default [
         children: [
           {
             title: 'Ücret İşlemleri',
-            href: '/profile/1/timeline'
+            href: '/profile/1/timeline',
           },
           {
             title: 'Fark Bordrosu',
-            href: '/profile/1/connections'
-          }
-        ]
+            href: '/profile/1/connections',
+          },
+        ],
       },
       {
         title: 'Sgk İşlemleri',
         href: '/invoices/1',
-        icon: ReceiptIcon
+        icon: ReceiptIcon,
       },
       {
         title: 'Tanımlar',
@@ -76,23 +76,23 @@ export default [
         children: [
           {
             title: 'Dönem İşlemleri',
-            href: '/projects'
+            href: '/projects',
           },
           {
             title: 'Ücret Yönetimi',
-            href: '/projects/create'
+            href: '/projects/create',
           },
           {
             title: 'Devir Matrah',
-            href: '/projects/1/overview'
+            href: '/projects/1/overview',
           },
           {
             title: 'Kuruma Ait Bilgiler',
-            href: '/projects/1/files'
-          }
-        ]
-      }
-    ]
+            href: '/projects/1/files',
+          },
+        ],
+      },
+    ],
   },
   {
     title: 'Yardım',
@@ -100,18 +100,18 @@ export default [
       {
         title: 'Kullanım Kılavuzu',
         href: '/presentation',
-        icon: PresentToAllIcon
+        icon: PresentToAllIcon,
       },
       {
         title: 'Kullanım Videoları',
         href: '/getting-started',
-        icon: CodeIcon
+        icon: CodeIcon,
       },
       {
         title: 'Sıkça Sorulan Sorular',
         href: '/changelog',
-        icon: ViewModuleIcon
-      }
-    ]
-  }
+        icon: ViewModuleIcon,
+      },
+    ],
+  },
 ];

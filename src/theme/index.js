@@ -8,9 +8,9 @@ const theme = createMuiTheme(
   {
     palette,
     typography,
-    overrides
+    overrides,
   },
-  trTR
+  trTR,
 );
 
 export default theme;
