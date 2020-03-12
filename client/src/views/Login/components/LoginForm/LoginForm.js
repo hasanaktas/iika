@@ -1,29 +1,29 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from 'react';
-import clsx from 'clsx';
-import { useDispatch, useSelector } from 'react-redux';
-import { Button, TextField } from '@material-ui/core';
-import { useStyles } from './LoginForm.styles';
-import * as allActions from 'store/actions/authActions';
+import React, { useState } from 'react'
+import clsx from 'clsx'
+import { useDispatch, useSelector } from 'react-redux'
+import { Button, TextField, Typography } from '@material-ui/core'
+import { useStyles } from './LoginForm.styles'
+import * as allActions from 'store/actions/authActions'
 const LoginForm = props => {
-  const { className, ...rest } = props;
+  const { className, ...rest } = props
 
-  const classes = useStyles();
-  const dispatch = useDispatch();
-  const errorMessage = useSelector(state => state.auth.errorMessage);
+  const classes = useStyles()
+  const dispatch = useDispatch()
+  const errorMessage = useSelector(state => state.auth.errorMessage)
   const [formState, setFormState] = useState({
     email: 'admin@ik.com.tr',
     password: 'admin',
-  });
+  })
 
   const handleChange = event => {
-    event.persist();
+    event.persist()
 
     setFormState(formState => ({
       ...formState,
       [event.target.name]: event.target.value,
-    }));
-  };
+    }))
+  }
 
   return (
     <div
@@ -34,7 +34,6 @@ const LoginForm = props => {
         <TextField
           error={errorMessage !== ''}
           fullWidth
-          helperText={errorMessage}
           label="E-posta Adresi"
           name="email"
           onChange={handleChange}
@@ -44,7 +43,6 @@ const LoginForm = props => {
         <TextField
           error={errorMessage !== ''}
           fullWidth
-          helperText={errorMessage}
           label="Parola"
           name="password"
           onChange={handleChange}
@@ -62,8 +60,16 @@ const LoginForm = props => {
       >
         Giriş Yap
       </Button>
-    </div>
-  );
-};
 
-export default LoginForm;
+      <Typography
+        color="error"
+        style={{ marginTop: 30 }}
+        variant="caption"
+      >
+        {errorMessage}
+      </Typography>
+    </div>
+  )
+}
+
+export default LoginForm

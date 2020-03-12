@@ -72,6 +72,7 @@ const KurumEkleDuzenleDialog = props => {
         <DialogContent>
           <TextField
             autoFocus
+            error={form.adi === ''}
             fullWidth
             label="Kurum Adı"
             margin="dense"
@@ -89,6 +90,7 @@ const KurumEkleDuzenleDialog = props => {
           </Button>
           <Button
             color="primary"
+            disabled={form.adi === ''}
             onClick={() => {
               handleClose()
               kurumEkleVeyaDuzenle(form)
