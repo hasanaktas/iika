@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import MaterialTable from 'material-table'
+import MUIDataTable from 'mui-datatables'
 import axios from 'utils/api'
-import KurumEkleDuzenleDialog from './KurumEkleDuzenleDialog'
+import CustomToolbar from './CustomToolbar'
+import CustomToolbarSelect from './CustomToolbarSelect'
 const KurumIslemleri = () => {
   const [kurumlar, setKurumlar] = useState([])
-  const [seciliKurum, setSeciliKurum] = useState(null)
-  const [kurumEkleDuzenleDialog, setkKurumEkleDuzenleDialog] = useState(false)
+
   useEffect(() => {
     kurumlariGetir()
   }, [])
@@ -28,8 +28,6 @@ const KurumIslemleri = () => {
   }
 
   function kurumEkleVeyaDuzenle(item) {
-    setkKurumEkleDuzenleDialog(false)
-    setSeciliKurum(null)
     const func = item.id ? axios.put : axios.post
     func('tanim/kurum', item)
       .then(({ data }) => {
@@ -40,49 +38,92 @@ const KurumIslemleri = () => {
       })
   }
 
-  function kurumEkleDuzenleDialogOpen(item = null) {
-    setkKurumEkleDuzenleDialog(true)
-    setSeciliKurum(item)
-    console.log(item)
-  }
-
   return (
     <div>
-      <MaterialTable
-        actions={[
-          {
-            icon: 'edit',
-            tooltip: 'Kurumu Duzenle',
-            onClick: (event, rowData) => kurumEkleDuzenleDialogOpen(rowData),
-          },
-          {
-            icon: 'delete',
-            tooltip: 'Kurumu Sil',
-            onClick: (event, rowData) => kurumSil(rowData.id),
-          },
-          {
-            icon: 'add',
-            tooltip: 'Kurum Ekle',
-            isFreeAction: true,
-            onClick: event => kurumEkleDuzenleDialogOpen(null),
-          },
-        ]}
+      <MUIDataTable
         columns={[
-          { title: 'id', field: 'id' },
-          { title: 'Adı', field: 'adi' },
+          {
+            label: 'ID',
+            name: 'id',
+            options: {
+              filter: false,
+              sortDirection: 'asc',
+            },
+          },
+          {
+            label: 'Kurum Adı',
+            name: 'adi',
+            options: {
+              filterType: 'textField',
+            },
+          },
         ]}
         data={kurumlar}
         options={{
-          actionsColumnIndex: -1,
+          sortFilterList: false,
+          elevation: 1,
+          onRowsDelete: rowsDeleted => {
+            const id = kurumlar[rowsDeleted.data[0].dataIndex].id
+            kurumSil(id)
+            return false
+          },
+          customToolbarSelect: (selectedRows, displayData, setSelectedRows) => (
+            <CustomToolbarSelect
+              deleteRow={() => {
+                const id = kurumlar[selectedRows.data[0].dataIndex].id
+                kurumSil(id)
+              }}
+              displayData={displayData}
+              kurumEkleVeyaDuzenle={kurumEkleVeyaDuzenle}
+              seciliKurum={kurumlar[selectedRows.data[0].dataIndex]}
+              selectedRows={selectedRows}
+              setSelectedRows={setSelectedRows}
+            />
+          ),
+          customToolbar: () => {
+            return <CustomToolbar kurumEkleVeyaDuzenle={kurumEkleVeyaDuzenle} />
+          },
+          pagination: false,
+          selectableRows: 'single',
+          selectableRowsOnClick: true,
+          print: false,
+          download: false,
+          textLabels: {
+            body: {
+              noMatch: 'Üzgünüz, eşleşen kayıt bulunamadı',
+              toolTip: 'Sınıfla',
+              columnHeaderTooltip: column => `Sırala - ${column.label}`,
+            },
+            pagination: {
+              next: 'Sonraki Sayfa',
+              previous: 'Önceki sayfa',
+              rowsPerPage: 'Sayfa başına satır:',
+              displayRows: 'of',
+            },
+            toolbar: {
+              search: 'Ara',
+              downloadCsv: 'CSV olarak indir',
+              print: 'Yazdır',
+              viewColumns: 'Sütünları Göster',
+              filterTable: 'Tabloyu Filtrele',
+            },
+            filter: {
+              all: 'Hepsi',
+              title: 'Filtrele',
+              reset: 'Sıfırla',
+            },
+            viewColumns: {
+              title: 'Sütünları Göster',
+              titleAria: 'Sütünları Göster Gizle',
+            },
+            selectedRows: {
+              text: 'kurum seçildi',
+              delete: 'Sil',
+              deleteAria: 'Seçeli satırı sil',
+            },
+          },
         }}
         title="Kurumlar"
-      />
-
-      <KurumEkleDuzenleDialog
-        kurumEkleVeyaDuzenle={kurumEkleVeyaDuzenle}
-        onClose={() => setkKurumEkleDuzenleDialog(false)}
-        open={kurumEkleDuzenleDialog}
-        seciliKurum={seciliKurum}
       />
     </div>
   )

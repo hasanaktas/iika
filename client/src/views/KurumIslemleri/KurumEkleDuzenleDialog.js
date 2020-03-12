@@ -6,20 +6,32 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
+  Tooltip,
+  IconButton,
 } from '@material-ui/core'
-
+import EditIcon from '@material-ui/icons/Edit'
+import AddIcon from '@material-ui/icons/Add'
 const KurumEkleDuzenleDialog = props => {
-  const { seciliKurum, onClose, open, kurumEkleVeyaDuzenle } = props
-  const [form, setForm] = useState({ adi: '' })
+  const { seciliKurum, kurumEkleVeyaDuzenle } = props
+
+  const [open, setOpen] = React.useState(false)
+
+  const handleClickOpen = () => {
+    setOpen(true)
+    console.log(seciliKurum)
+  }
+
+  const handleClose = () => {
+    setOpen(false)
+  }
+
+  const [form, setForm] = useState({ adi: seciliKurum ? seciliKurum.adi : '' })
 
   useEffect(() => {
-    seciliKurum
-      ? setForm({
+    seciliKurum &&
+      setForm({
         adi: seciliKurum.adi,
         id: seciliKurum.id,
-      })
-      : setForm({
-        adi: '',
       })
   }, [seciliKurum])
 
@@ -31,39 +43,62 @@ const KurumEkleDuzenleDialog = props => {
   }
 
   return (
-    <Dialog
-      fullWidth
-      maxWidth="sm"
-      onClose={onClose}
-      open={open}
-    >
-      <DialogTitle>{seciliKurum ? 'Duzenle' : 'Yeni Kurum Ekle'}</DialogTitle>
-      <DialogContent>
-        <TextField
-          autoFocus
-          fullWidth
-          label="Kurum Adı"
-          margin="dense"
-          name="adi"
-          onChange={updateField}
-          value={form.adi}
-        />
-      </DialogContent>
-      <DialogActions>
+    <>
+      {seciliKurum ? (
+        <Tooltip title={'Kurumu Duzenle'}>
+          <IconButton onClick={handleClickOpen}>
+            <EditIcon />
+          </IconButton>
+        </Tooltip>
+      ) : (
         <Button
           color="primary"
-          onClick={onClose}
+          endIcon={<AddIcon />}
+          onClick={handleClickOpen}
         >
-          Vazgeç
+          KURUM EKLE
         </Button>
-        <Button
-          color="primary"
-          onClick={() => kurumEkleVeyaDuzenle(form)}
-        >
-          Onayla
-        </Button>
-      </DialogActions>
-    </Dialog>
+      )}
+
+      <Dialog
+        fullWidth
+        maxWidth="sm"
+        onClose={handleClose}
+        open={open}
+      >
+        <DialogTitle id="form-dialog-title">
+          {seciliKurum ? 'Kurum Düzenle' : 'Kurum Ekle'}
+        </DialogTitle>
+        <DialogContent>
+          <TextField
+            autoFocus
+            fullWidth
+            label="Kurum Adı"
+            margin="dense"
+            name="adi"
+            onChange={updateField}
+            value={form.adi}
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button
+            color="primary"
+            onClick={handleClose}
+          >
+            Vazgeç
+          </Button>
+          <Button
+            color="primary"
+            onClick={() => {
+              handleClose()
+              kurumEkleVeyaDuzenle(form)
+            }}
+          >
+            Onayla
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </>
   )
 }
 
