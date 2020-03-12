@@ -1,24 +1,25 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import clsx from 'clsx';
-import PropTypes from 'prop-types';
+import React from 'react'
+import clsx from 'clsx'
+import PropTypes from 'prop-types'
 import {
   AppBar,
   IconButton,
   Toolbar,
   Hidden,
   colors,
-  makeStyles
-} from '@material-ui/core';
-
-import MenuIcon from '@material-ui/icons/Menu';
+  makeStyles,
+  Typography,
+} from '@material-ui/core'
+import { useSelector } from 'react-redux'
+import MenuIcon from '@material-ui/icons/Menu'
 
 const useStyles = makeStyles(theme => ({
   root: {
-    boxShadow: 'none'
+    boxShadow: 'none',
   },
   flexGrow: {
-    flexGrow: 1
+    flexGrow: 1,
   },
   search: {
     backgroundColor: 'rgba(255,255,255, 0.1)',
@@ -27,55 +28,56 @@ const useStyles = makeStyles(theme => ({
     height: 36,
     padding: theme.spacing(1),
     display: 'flex',
-    alignItems: 'center'
+    alignItems: 'center',
   },
   searchIcon: {
     marginRight: theme.spacing(2),
-    color: 'inherit'
+    color: 'inherit',
   },
   searchInput: {
     flexGrow: 1,
     color: 'inherit',
     '& input::placeholder': {
       opacity: 1,
-      color: 'inherit'
-    }
+      color: 'inherit',
+    },
   },
   searchPopper: {
-    zIndex: theme.zIndex.appBar + 100
+    zIndex: theme.zIndex.appBar + 100,
   },
   searchPopperContent: {
-    marginTop: theme.spacing(1)
+    marginTop: theme.spacing(1),
   },
   trialButton: {
     marginLeft: theme.spacing(2),
     color: theme.palette.white,
     backgroundColor: colors.green[600],
     '&:hover': {
-      backgroundColor: colors.green[900]
-    }
+      backgroundColor: colors.green[900],
+    },
   },
   trialIcon: {
-    marginRight: theme.spacing(1)
+    marginRight: theme.spacing(1),
   },
   notificationsButton: {
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(1),
   },
   notificationsBadge: {
-    backgroundColor: colors.orange[600]
+    backgroundColor: colors.orange[600],
   },
   logoutButton: {
-    marginLeft: theme.spacing(1)
+    marginLeft: theme.spacing(1),
   },
   logoutIcon: {
-    marginRight: theme.spacing(1)
-  }
-}));
+    marginRight: theme.spacing(1),
+  },
+}))
 
 const TopBar = props => {
-  const { onOpenNavBarMobile, className, ...rest } = props;
+  const { onOpenNavBarMobile, className, ...rest } = props
 
-  const classes = useStyles();
+  const kurumAdi = useSelector(state => state.auth.user.kurum_adi)
+  const classes = useStyles()
 
   return (
     <AppBar
@@ -92,15 +94,17 @@ const TopBar = props => {
             <MenuIcon />
           </IconButton>
         </Hidden>
+
         <div className={classes.flexGrow} />
+        <Typography style={{ color: '#fff' }}>{kurumAdi}</Typography>
       </Toolbar>
     </AppBar>
-  );
-};
+  )
+}
 
 TopBar.propTypes = {
   className: PropTypes.string,
-  onOpenNavBarMobile: PropTypes.func
-};
+  onOpenNavBarMobile: PropTypes.func,
+}
 
-export default TopBar;
+export default TopBar

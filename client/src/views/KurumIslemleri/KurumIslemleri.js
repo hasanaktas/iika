@@ -46,7 +46,6 @@ const KurumIslemleri = () => {
             label: 'ID',
             name: 'id',
             options: {
-              filter: false,
               sortDirection: 'asc',
             },
           },
