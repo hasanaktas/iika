@@ -6,8 +6,8 @@ import { NavBar, TopBar } from './components'
 
 const useStyles = makeStyles(() => ({
   root: {
-    height: '100%',
-    width: '100%',
+    height: '100vh',
+    width: '100vw',
     display: 'flex',
     flexDirection: 'column',
     overflow: 'hidden',
@@ -30,6 +30,7 @@ const useStyles = makeStyles(() => ({
   content: {
     overflowY: 'auto',
     flex: '1 1 auto',
+    padding: 20,
   },
 }))
 

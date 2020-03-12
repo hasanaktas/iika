@@ -7,6 +7,7 @@ export const checkUser = () => dispatch => {
   const user = localStorage.getItem('user') || ''
 
   if (user !== '') {
+    axios.defaults.headers.common['Authorization'] = 'Bearer ' + JSON.parse(user).token
     dispatch({
       type: AUTH_LOGIN,
       payload: JSON.parse(user),
@@ -27,6 +28,7 @@ export const login = (eposta, parola) => dispatch => {
     .then(response => {
       console.log('//Login Basarili')
       console.log(response.data.sonuc)
+      axios.defaults.headers.common['Authorization'] = 'Bearer ' + response.data.sonuc.user.token
       localStorage.setItem('user', JSON.stringify(response.data.sonuc.user))
       dispatch({
         type: AUTH_LOGIN,
